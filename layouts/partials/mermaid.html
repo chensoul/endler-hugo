@@ -1,0 +1,3 @@
+{{ if and .IsPage (.Store.Get "hasMermaid") }}
+<script defer src="{{ .Param "mermaidPath" | default "https://cdn.jsdmirror.com/npm/mermaid@11.8.0/dist/mermaid.min.js" }}" integrity="sha256-ozuDfeDhjEI9EXLi0CdigeIiAcaRYi3E5T+VLC9yIB4=" crossorigin="anonymous" async></script>
+{{ end }}

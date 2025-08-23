@@ -53,8 +53,6 @@
           </span>
                     {{ end }}
                 </div>
-
-
             </header>
 
             <div class="article-content">
@@ -62,13 +60,7 @@
             </div>
 
             {{ partial "comments.html" . }}
-
-            {{ if .Params.translations }}
-            <ul class="post-links">
-                <li>{{ .Params.translations | safeHTML }}</li>
-            </ul>
-            {{ end }}
-
+            {{ partial "mermaid.html" . }}
         </article>
     </main>
 </div>
