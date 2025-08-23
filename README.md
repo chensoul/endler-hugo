@@ -204,7 +204,7 @@ endler-hugo/
 │   │   ├── terms.html       # Tag cloud
 │   │   └── rss.xml          # RSS template
 │   ├── partials/
-│   │   ├── article_preview.html
+│   │   ├── article.html
 │   │   ├── footer.html
 │   │   ├── search.html
 │   │   └── social.html
