@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Workflow on Endler Hugo Theme</title>
+    <link>https://example.com/tags/workflow/</link>
+    <description>Recent content in Workflow on Endler Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>Author</managingEditor>
+    <webMaster>Author</webMaster>
+    <lastBuildDate>Sat, 30 Nov 2024 00:00:00 &#43;0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/workflow/rss.xml" rel="self" type="application/rss&#43;xml" />
+    <item>
+      <title>My Development Setup: Tools and Workflow for 2025</title>
+      <link>https://example.com/posts/my-development-setup/</link>
+      <pubDate>Sat, 30 Nov 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>https://example.com/posts/my-development-setup/</guid>
+      <description>A detailed look at my current development environment, including hardware, software, and productivity tools that help me stay efficient.</description>
+    </item>
+  </channel>
+</rss>

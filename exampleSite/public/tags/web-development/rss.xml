@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web-Development on Endler Hugo Theme</title>
+    <link>https://example.com/tags/web-development/</link>
+    <description>Recent content in Web-Development on Endler Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>Author</managingEditor>
+    <webMaster>Author</webMaster>
+    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/web-development/rss.xml" rel="self" type="application/rss&#43;xml" />
+    <item>
+      <title>Getting Started with Hugo: A Complete Guide</title>
+      <link>https://example.com/posts/getting-started-with-hugo/</link>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>https://example.com/posts/getting-started-with-hugo/</guid>
+      <description>Learn how to build fast, modern websites with Hugo, the world&#39;s fastest static site generator.</description>
+    </item>
+    <item>
+      <title>Building a Personal Website: From Idea to Deployment</title>
+      <link>https://example.com/posts/building-personal-website/</link>
+      <pubDate>Tue, 10 Sep 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>https://example.com/posts/building-personal-website/</guid>
+      <description>A complete walkthrough of building a personal website from scratch, including design decisions, technical choices, and deployment strategies.</description>
+    </item>
+  </channel>
+</rss>

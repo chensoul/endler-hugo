@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="container">
+  <main>
+    <h1>{{ .Title }}</h1>
+
+    {{ if eq .Type "tags" }}
+      <div class="tags-cloud">
+        {{ range .Data.Terms.ByCount }}
+          <a href="{{ .Page.RelPermalink }}" class="tag-item" data-count="{{ .Count }}">
+            <span class="tag-name">#{{ .Page.Title }}</span>
+            <span class="tag-count">({{ .Count }})</span>
+          </a>
+        {{ end }}
+      </div>
+    {{ else }}
+      {{ range $year, $pages := .Pages.GroupByDate "2006" }}
+        <h3>{{ $year }}</h3>
+        <ul>
+          {{ range $pages.Pages }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    {{ end }}
+  </main>
+</div>
+{{ end }}

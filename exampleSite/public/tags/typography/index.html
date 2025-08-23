@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn" data-theme="light">
+<head>
+    <script>
+        (function() {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+          }
+        })();
+    </script>
+    <link rel="preload" href="/fonts/Happy-Headline.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/merriweather-v31-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/syntax-theme-light-custom.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/syntax-theme-dark-custom.css" media="(prefers-color-scheme: dark)">
+    <link rel="canonical" href="https://example.com/tags/typography/"/>
+    <link rel="me" href="example"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml"/>
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff2e88"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"/>
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="msapplication-config" content="/browserconfig.xml"/>
+    <meta name="author" content="Author"/>
+    <meta name="description" content="A Hugo theme port of endler.dev (original Zola theme)"/>
+    <title>Typography | Endler Hugo Theme</title>
+
+    <style>
+        @font-face {
+            font-family: "Happy-Headline";
+            src: url("/fonts/Happy-Headline.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Happy";
+            src: url("/fonts/Happy.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "JetBrainsMono";
+            src: url("/fonts/JetBrainsMono-Regular.woff2") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: italic;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: bold;
+            font-weight: 700;
+            src: url('/fonts/merriweather-v31-latin-700.woff2') format('woff2');
+        }
+    </style>
+
+    
+</head>
+<body>
+<header>
+    <div class="site-header">
+        <a href="/" aria-label="Go back to homepage">
+            <picture>
+                <img src="/images/favicon.jpg" class="author-photo" alt="Site logo" width="40" height="40"/>
+            </picture>
+        </a>
+        <div>
+            <a href="/" aria-label="Go back to homepage">
+                <h1>Endler Hugo Theme</h1>
+            </a>
+            
+        </div>
+        <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</header>
+
+
+<div class="container">
+  <main>
+    <h1>Typography</h1>
+
+    
+      <p class="tag-description">
+        Posts tagged with &#34;Typography&#34;
+      </p>
+    
+
+    
+    
+      <article class="homepage">
+    <a class="title" href="/posts/example-post/">
+        <h1>Welcome to the Endler Hugo Theme: A Complete Feature Showcase</h1>
+    </a>
+
+    <p class="excerpt">
+        
+            Explore the complete feature set of the Endler Hugo theme through this comprehensive showcase of design elements, typography, and functionality.
+        
+
+
+    </p>
+</article>
+
+    
+
+    
+  </main>
+</div>
+
+
+<footer>
+  <div class="body">
+    <div class="footer-author">
+      <a href="/about">
+        <picture>
+          <img src="/images/author.jpg" alt="Author" class="author-photo" width="60" height="60">
+        </picture>
+      </a>
+      <div class="footer-author-text">
+        Hi, I'm <a href="/about">Author</a>.
+      </div>
+    </div>
+    <div>
+      <p>A Hugo theme port of endler.dev (original Zola theme)</p>
+      <p>Browse my <a href="/posts">Blog Posts</a>, subscribe to my <a href="/rss.xml">RSS feed</a>, or learn more <a href="/about">about me</a>.</p>
+      <nav class="social-icons">
+    <ul>
+        <li>
+            <a class="icon" href="/" title="Go to homepage" target="_blank" aria-label="Go to homepage">
+                <img src="/icons/home.svg" alt="Home">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://github.com/example" title="Github" target="_blank" aria-label="Github">
+                <img src="/icons/github.svg" alt="Github">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://mastodon.social/@example" title="Mastodon"  target="_blank"aria-label="Mastodon">
+                <img src="/icons/mastodon.svg" alt="Mastodon">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://twitter.com/example" title="Twitter" target="_blank" aria-label="Twitter">
+                <img src="/icons/twitter.svg" alt="Twitter">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="/rss.xml" title="RSS feed" target="_blank"  aria-label="RSS feed">
+                <img src="/icons/rss.svg" alt="RSS feed">
+            </a>
+        </li>
+    </ul>
+</nav>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    (function initTheme(){
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+</script>
+</body>
+</html>

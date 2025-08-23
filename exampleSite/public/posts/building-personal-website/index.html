@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-cn" data-theme="light">
+<head>
+    <script>
+        (function() {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+          }
+        })();
+    </script>
+    <link rel="preload" href="/fonts/Happy-Headline.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/merriweather-v31-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/syntax-theme-light-custom.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/syntax-theme-dark-custom.css" media="(prefers-color-scheme: dark)">
+    <link rel="canonical" href="https://example.com/posts/building-personal-website/"/>
+    <link rel="me" href="example"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml"/>
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff2e88"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"/>
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="msapplication-config" content="/browserconfig.xml"/>
+    <meta name="author" content="Author"/>
+    <meta name="description" content="A Hugo theme port of endler.dev (original Zola theme)"/>
+    <title>Building a Personal Website: From Idea to Deployment | Endler Hugo Theme</title>
+
+    <style>
+        @font-face {
+            font-family: "Happy-Headline";
+            src: url("/fonts/Happy-Headline.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Happy";
+            src: url("/fonts/Happy.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "JetBrainsMono";
+            src: url("/fonts/JetBrainsMono-Regular.woff2") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: italic;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: bold;
+            font-weight: 700;
+            src: url('/fonts/merriweather-v31-latin-700.woff2') format('woff2');
+        }
+    </style>
+
+    
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Building a Personal Website: From Idea to Deployment | Endler Hugo Theme"/>
+<meta property="og:type" content="website"/>
+<meta property="og:description" content="A complete walkthrough of building a personal website from scratch, including design decisions, technical choices, and deployment strategies."/>
+<meta property="og:url" content="https://example.com/posts/building-personal-website/"/>
+<meta property="og:image" content="https://endler.dev/default.png"/>
+
+<meta name="twitter:title" content="Building a Personal Website: From Idea to Deployment">
+<meta name="twitter:description" content="A complete walkthrough of building a personal website from scratch, including design decisions, technical choices, and deployment strategies.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@matthiasendler">
+<meta name="twitter:creator" content="@matthiasendler">
+<meta name="twitter:image" content="https://endler.dev/default.png">
+
+</head>
+<body>
+<header>
+    <div class="site-header">
+        <a href="/" aria-label="Go back to homepage">
+            <picture>
+                <img src="/images/favicon.jpg" class="author-photo" alt="Site logo" width="40" height="40"/>
+            </picture>
+        </a>
+        <div>
+            <a href="/" aria-label="Go back to homepage">
+                <h1>Endler Hugo Theme</h1>
+            </a>
+            
+        </div>
+        <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</header>
+
+
+<div class="container">
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>Building a Personal Website: From Idea to Deployment</h1>
+                
+
+                <div class="post-meta">
+          <span class="post-date">
+            
+              2024-09-10
+            
+          </span>
+                    
+                    <span class="post-tags">
+            
+                <a href="/tags/web-development/" class="tag-link">#web-development</a>
+                        
+                |  <a href="/tags/hugo/" class="tag-link">#hugo</a>
+                        
+                |  <a href="/tags/design/" class="tag-link">#design</a>
+                        
+                |  <a href="/tags/personal-branding/" class="tag-link">#personal-branding</a>
+                        
+                |  <a href="/tags/project/" class="tag-link">#project</a>
+                        
+          </span>
+                    
+                </div>
+
+
+            </header>
+
+            <div class="article-content">
+                <p>Creating a personal website is one of the best investments you can make as a developer. It&rsquo;s your digital home, portfolio, and creative outlet all in one.</p>
+<h2 id="why-build-a-personal-website">Why Build a Personal Website?</h2>
+<h3 id="professional-benefits">Professional Benefits</h3>
+<ul>
+<li><strong>Portfolio Showcase</strong>: Display your best work</li>
+<li><strong>Personal Branding</strong>: Control your online narrative</li>
+<li><strong>SEO Advantage</strong>: Rank for your name and expertise</li>
+<li><strong>Networking</strong>: Connect with like-minded professionals</li>
+<li><strong>Learning Platform</strong>: Experiment with new technologies</li>
+</ul>
+<h3 id="personal-benefits">Personal Benefits</h3>
+<ul>
+<li><strong>Creative Outlet</strong>: Express your personality and interests</li>
+<li><strong>Writing Practice</strong>: Improve communication skills</li>
+<li><strong>Knowledge Sharing</strong>: Help others learn from your experiences</li>
+<li><strong>Documentation</strong>: Keep track of your learning journey</li>
+</ul>
+<h2 id="planning-phase">Planning Phase</h2>
+<h3 id="defining-goals">Defining Goals</h3>
+<p>Before writing any code, I spent time defining what I wanted to achieve:</p>
+<p><strong>Primary Goals:</strong></p>
+<ul>
+<li>Showcase my development projects</li>
+<li>Share technical knowledge through blog posts</li>
+<li>Establish professional credibility</li>
+<li>Create a platform for networking</li>
+</ul>
+<p><strong>Secondary Goals:</strong></p>
+<ul>
+<li>Experiment with new web technologies</li>
+<li>Practice design and UX principles</li>
+<li>Build something I&rsquo;m genuinely proud of</li>
+</ul>
+<h3 id="target-audience">Target Audience</h3>
+<p>Understanding your audience shapes every decision:</p>
+<ul>
+<li><strong>Fellow Developers</strong>: Technical depth, code examples</li>
+<li><strong>Potential Employers</strong>: Professional presentation, clear skills</li>
+<li><strong>Clients</strong>: Business value, problem-solving approach</li>
+<li><strong>Students/Beginners</strong>: Educational content, learning resources</li>
+</ul>
+<h3 id="content-strategy">Content Strategy</h3>
+<p>I planned the main sections:</p>
+<ol>
+<li><strong>About</strong>: Personal story and professional background</li>
+<li><strong>Projects</strong>: Detailed case studies of my work</li>
+<li><strong>Blog</strong>: Technical articles and thoughts</li>
+<li><strong>Contact</strong>: Multiple ways to reach me</li>
+</ol>
+<h2 id="design-process">Design Process</h2>
+<h3 id="inspiration-gathering">Inspiration Gathering</h3>
+<p>I studied websites I admired:</p>
+<ul>
+<li><a href="https://danluu.com/">Dan Luu</a>: Excellent technical writing</li>
+<li><a href="https://jvns.ca/">Julia Evans</a>: Great educational content</li>
+<li><a href="https://endler.dev/">Matthias Endler</a>: Clean, minimal design</li>
+<li><a href="https://cassidoo.co/">Cassidy Williams</a>: Perfect balance of professional and personal</li>
+</ul>
+<h3 id="design-principles">Design Principles</h3>
+<p><strong>Minimalism</strong>: Clean, uncluttered interface
+<strong>Typography</strong>: Readable fonts and proper spacing
+<strong>Performance</strong>: Fast loading times
+<strong>Accessibility</strong>: Works for everyone
+<strong>Mobile-First</strong>: Responsive design</p>
+<h3 id="wireframing">Wireframing</h3>
+<p>I sketched basic layouts for each page type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Homepage Layout:
+</span></span><span style="display:flex;"><span>┌─────────────────────────┐
+</span></span><span style="display:flex;"><span>│ Header <span style="color:#f92672">(</span>Name + Nav<span style="color:#f92672">)</span>     │
+</span></span><span style="display:flex;"><span>├─────────────────────────┤
+</span></span><span style="display:flex;"><span>│ Hero Section            │
+</span></span><span style="display:flex;"><span>│ - Brief intro           │
+</span></span><span style="display:flex;"><span>│ - Call to action        │
+</span></span><span style="display:flex;"><span>├─────────────────────────┤
+</span></span><span style="display:flex;"><span>│ Featured Projects       │
+</span></span><span style="display:flex;"><span>│ - <span style="color:#ae81ff">3</span> project cards       │
+</span></span><span style="display:flex;"><span>├─────────────────────────┤
+</span></span><span style="display:flex;"><span>│ Recent Blog Posts       │
+</span></span><span style="display:flex;"><span>│ - <span style="color:#ae81ff">3</span> latest articles     │
+</span></span><span style="display:flex;"><span>├─────────────────────────┤
+</span></span><span style="display:flex;"><span>│ Footer                  │
+</span></span><span style="display:flex;"><span>└─────────────────────────┘
+</span></span></code></pre></div><h3 id="color-palette">Color Palette</h3>
+<p>I chose a minimal palette:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>:<span style="color:#a6e22e">root</span> {
+</span></span><span style="display:flex;"><span>  --primary: <span style="color:#ae81ff">#2d3748</span>;      <span style="color:#75715e">/* Dark gray */</span>
+</span></span><span style="display:flex;"><span>  --secondary: <span style="color:#ae81ff">#4a5568</span>;    <span style="color:#75715e">/* Medium gray */</span>
+</span></span><span style="display:flex;"><span>  --accent: <span style="color:#ae81ff">#3182ce</span>;       <span style="color:#75715e">/* Blue */</span>
+</span></span><span style="display:flex;"><span>  --background: <span style="color:#ae81ff">#ffffff</span>;   <span style="color:#75715e">/* White */</span>
+</span></span><span style="display:flex;"><span>  --surface: <span style="color:#ae81ff">#f7fafc</span>;      <span style="color:#75715e">/* Light gray */</span>
+</span></span><span style="display:flex;"><span>  --text: <span style="color:#ae81ff">#2d3748</span>;         <span style="color:#75715e">/* Dark gray */</span>
+</span></span><span style="display:flex;"><span>  --text-light: <span style="color:#ae81ff">#718096</span>;   <span style="color:#75715e">/* Light gray */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="technical-decisions">Technical Decisions</h2>
+<h3 id="static-site-generator">Static Site Generator</h3>
+<p>I evaluated several options:</p>
+<p><strong>Hugo</strong> ✅</p>
+<ul>
+<li>Extremely fast build times</li>
+<li>Great theme ecosystem</li>
+<li>Excellent documentation</li>
+<li>Single binary deployment</li>
+</ul>
+<p><strong>Next.js</strong></p>
+<ul>
+<li>More complex than needed</li>
+<li>Overkill for a static site</li>
+<li>Requires Node.js runtime</li>
+</ul>
+<p><strong>Gatsby</strong></p>
+<ul>
+<li>GraphQL complexity</li>
+<li>Slower build times</li>
+<li>Plugin ecosystem overhead</li>
+</ul>
+<h3 id="hosting-platform">Hosting Platform</h3>
+<p><strong>Netlify</strong> ✅</p>
+<ul>
+<li>Free tier with generous limits</li>
+<li>Automatic deployments from Git</li>
+<li>Built-in form handling</li>
+<li>Edge functions support</li>
+</ul>
+<p><strong>Vercel</strong></p>
+<ul>
+<li>Excellent for Next.js</li>
+<li>More focused on dynamic sites</li>
+</ul>
+<p><strong>GitHub Pages</strong></p>
+<ul>
+<li>Limited build options</li>
+<li>No server-side features</li>
+</ul>
+<h3 id="domain-and-dns">Domain and DNS</h3>
+<p>I chose a <code>.dev</code> domain for several reasons:</p>
+<ul>
+<li>Professional appearance</li>
+<li>HTTPS by default</li>
+<li>Good for developer branding</li>
+</ul>
+<h2 id="development-process">Development Process</h2>
+<h3 id="project-structure">Project Structure</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>personal-website/
+</span></span><span style="display:flex;"><span>├── content/
+</span></span><span style="display:flex;"><span>│   ├── posts/           <span style="color:#75715e"># Blog articles</span>
+</span></span><span style="display:flex;"><span>│   ├── projects/        <span style="color:#75715e"># Project case studies</span>
+</span></span><span style="display:flex;"><span>│   └── about.md         <span style="color:#75715e"># About page</span>
+</span></span><span style="display:flex;"><span>├── layouts/
+</span></span><span style="display:flex;"><span>│   ├── _default/        <span style="color:#75715e"># Default templates</span>
+</span></span><span style="display:flex;"><span>│   ├── partials/        <span style="color:#75715e"># Reusable components</span>
+</span></span><span style="display:flex;"><span>│   └── index.html       <span style="color:#75715e"># Homepage template</span>
+</span></span><span style="display:flex;"><span>├── static/
+</span></span><span style="display:flex;"><span>│   ├── images/          <span style="color:#75715e"># Images and media</span>
+</span></span><span style="display:flex;"><span>│   ├── css/             <span style="color:#75715e"># Stylesheets</span>
+</span></span><span style="display:flex;"><span>│   └── js/              <span style="color:#75715e"># JavaScript files</span>
+</span></span><span style="display:flex;"><span>├── config.toml          <span style="color:#75715e"># Site configuration</span>
+</span></span><span style="display:flex;"><span>└── netlify.toml         <span style="color:#75715e"># Deployment config</span>
+</span></span></code></pre></div><h3 id="key-features-implementation">Key Features Implementation</h3>
+<h4 id="dark-mode-toggle">Dark Mode Toggle</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// Theme switcher
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ThemeManager</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#39;theme&#39;</span>) <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;light&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">init</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;data-theme&#39;</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">updateToggle</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">toggle</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;light&#39;</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;dark&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;light&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#39;theme&#39;</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span>);
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;data-theme&#39;</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">updateToggle</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">updateToggle</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggle</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.theme-toggle&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">toggle</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;aria-label&#39;</span>, 
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">`Switch to </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">theme</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;light&#39;</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;dark&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;light&#39;</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> mode`</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">themeManager</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ThemeManager</span>();
+</span></span></code></pre></div><h4 id="project-filtering">Project Filtering</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// Project filter functionality
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">filterProjects</span>(<span style="color:#a6e22e">category</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">projects</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;.project-card&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">buttons</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;.filter-btn&#39;</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Update active button
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">buttons</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">btn</span> =&gt; <span style="color:#a6e22e">btn</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#39;active&#39;</span>));
+</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">`[data-filter=&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">category</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;]`</span>).<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#39;active&#39;</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Filter projects
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">projects</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">project</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">categories</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">project</span>.<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">categories</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">category</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;all&#39;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">categories</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#a6e22e">category</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">project</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">display</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;block&#39;</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">project</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">display</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;none&#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="contact-form">Contact Form</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Netlify form with spam protection --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#a6e22e">data-netlify</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#a6e22e">data-netlify-honeypot</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bot-field&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-name&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">label</span>&gt;Don&#39;t fill this out: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bot-field&#34;</span>&gt;&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt;Name&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">required</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span>&gt;Email&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span> <span style="color:#a6e22e">required</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form-group&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;Message&lt;/<span style="color:#f92672">label</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span> <span style="color:#a6e22e">rows</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5&#34;</span> <span style="color:#a6e22e">required</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;Send Message&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+</span></span></code></pre></div><h2 id="content-creation">Content Creation</h2>
+<h3 id="writing-process">Writing Process</h3>
+<ol>
+<li><strong>Brainstorming</strong>: Keep a running list of article ideas</li>
+<li><strong>Outlining</strong>: Structure thoughts before writing</li>
+<li><strong>Drafting</strong>: Focus on getting ideas down</li>
+<li><strong>Editing</strong>: Multiple passes for clarity and flow</li>
+<li><strong>Review</strong>: Check for technical accuracy</li>
+</ol>
+<h3 id="project-case-studies">Project Case Studies</h3>
+<p>Each project page includes:</p>
+<ul>
+<li><strong>Problem Statement</strong>: What challenge was solved?</li>
+<li><strong>Technical Approach</strong>: How was it built?</li>
+<li><strong>Challenges</strong>: What obstacles were encountered?</li>
+<li><strong>Results</strong>: What was achieved?</li>
+<li><strong>Lessons Learned</strong>: What would be done differently?</li>
+</ul>
+<h3 id="seo-optimization">SEO Optimization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Front matter for blog posts</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Building a Personal Website: From Idea to Deployment&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;A complete guide to building a personal website from scratch&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">keywords</span>: [<span style="color:#e6db74">&#34;web development&#34;</span>, <span style="color:#e6db74">&#34;hugo&#34;</span>, <span style="color:#e6db74">&#34;personal website&#34;</span>, <span style="color:#e6db74">&#34;portfolio&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#f92672">date</span>: <span style="color:#e6db74">2024-09-10</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">lastmod</span>: <span style="color:#e6db74">2024-09-15</span>
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><h2 id="performance-optimization">Performance Optimization</h2>
+<h3 id="image-optimization">Image Optimization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Responsive images with WebP support --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">picture</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">srcset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/images/project-hero.webp&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/webp&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">srcset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/images/project-hero.jpg&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image/jpeg&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/images/project-hero.jpg&#34;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Project screenshot&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">loading</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lazy&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;800&#34;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">picture</span>&gt;
+</span></span></code></pre></div><h3 id="css-optimization">CSS Optimization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/* Critical CSS inlined in head */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Non-critical CSS loaded asynchronously */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Use CSS custom properties for theming */</span>
+</span></span><span style="display:flex;"><span>:<span style="color:#a6e22e">root</span> {
+</span></span><span style="display:flex;"><span>  --font-size-base: <span style="color:#a6e22e">clamp</span>(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>, <span style="color:#ae81ff">2.5</span><span style="color:#66d9ef">vw</span>, <span style="color:#ae81ff">1.125</span><span style="color:#66d9ef">rem</span>);
+</span></span><span style="display:flex;"><span>  --line-height-base: <span style="color:#ae81ff">1.6</span>;
+</span></span><span style="display:flex;"><span>  --space-xs: <span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>  --space-sm: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>  --space-md: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>  --space-lg: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* Optimize for Core Web Vitals */</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">hero-image</span> {
+</span></span><span style="display:flex;"><span>  content-visibility: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>  contain-intrinsic-size: <span style="color:#ae81ff">800</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">400</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="javascript-optimization">JavaScript Optimization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// Lazy load non-critical features
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">observer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">IntersectionObserver</span>((<span style="color:#a6e22e">entries</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entries</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">entry</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">entry</span>.<span style="color:#a6e22e">isIntersecting</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// Load feature when it comes into view
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">loadProjectFilter</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">observer</span>.<span style="color:#a6e22e">unobserve</span>(<span style="color:#a6e22e">entry</span>.<span style="color:#a6e22e">target</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">observer</span>.<span style="color:#a6e22e">observe</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.projects-section&#39;</span>));
+</span></span></code></pre></div><h2 id="deployment-and-monitoring">Deployment and Monitoring</h2>
+<h3 id="continuous-deployment">Continuous Deployment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#75715e"># netlify.toml</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">build</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">publish</span> = <span style="color:#e6db74">&#34;public&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">command</span> = <span style="color:#e6db74">&#34;hugo --minify&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">build</span>.<span style="color:#a6e22e">environment</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">HUGO_VERSION</span> = <span style="color:#e6db74">&#34;0.120.0&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">headers</span>]]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for</span> = <span style="color:#e6db74">&#34;/*&#34;</span>
+</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">values</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">X-Frame-Options</span> = <span style="color:#e6db74">&#34;DENY&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">X-XSS-Protection</span> = <span style="color:#e6db74">&#34;1; mode=block&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">X-Content-Type-Options</span> = <span style="color:#e6db74">&#34;nosniff&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Referrer-Policy</span> = <span style="color:#e6db74">&#34;strict-origin-when-cross-origin&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">headers</span>]]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for</span> = <span style="color:#e6db74">&#34;/images/*&#34;</span>
+</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">headers</span>.<span style="color:#a6e22e">values</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Cache-Control</span> = <span style="color:#e6db74">&#34;public, max-age=31536000&#34;</span>
+</span></span></code></pre></div><h3 id="analytics-and-monitoring">Analytics and Monitoring</h3>
+<ul>
+<li><strong>Google Analytics</strong>: Traffic and user behavior</li>
+<li><strong>Google Search Console</strong>: SEO performance</li>
+<li><strong>Lighthouse CI</strong>: Performance monitoring</li>
+<li><strong>Uptime Robot</strong>: Availability monitoring</li>
+</ul>
+<h2 id="results-and-lessons-learned">Results and Lessons Learned</h2>
+<h3 id="metrics-after-6-months">Metrics After 6 Months</h3>
+<ul>
+<li><strong>Page Speed</strong>: 95+ Lighthouse score</li>
+<li><strong>SEO</strong>: Ranking #1 for my name</li>
+<li><strong>Traffic</strong>: 2,000+ monthly visitors</li>
+<li><strong>Engagement</strong>: 3+ minute average session</li>
+</ul>
+<h3 id="key-lessons">Key Lessons</h3>
+<ol>
+<li><strong>Start Simple</strong>: Don&rsquo;t over-engineer the first version</li>
+<li><strong>Content is King</strong>: Great content beats fancy features</li>
+<li><strong>Performance Matters</strong>: Fast sites rank better and convert more</li>
+<li><strong>Iterate Continuously</strong>: Regular updates keep the site fresh</li>
+<li><strong>Measure Everything</strong>: Data drives better decisions</li>
+</ol>
+<h3 id="what-id-do-differently">What I&rsquo;d Do Differently</h3>
+<ul>
+<li><strong>Start Writing Earlier</strong>: Content creation takes longer than expected</li>
+<li><strong>Plan for Mobile First</strong>: Desktop-first design caused mobile issues</li>
+<li><strong>Invest in Photography</strong>: Good images make a huge difference</li>
+<li><strong>Set Up Analytics Early</strong>: Historical data is valuable</li>
+</ul>
+<h2 id="future-improvements">Future Improvements</h2>
+<h3 id="planned-features">Planned Features</h3>
+<ul>
+<li><strong>Newsletter</strong>: Email list for regular updates</li>
+<li><strong>Search</strong>: Full-text search across all content</li>
+<li><strong>Comments</strong>: Community engagement on blog posts</li>
+<li><strong>RSS Feed</strong>: Syndication for regular readers</li>
+</ul>
+<h3 id="technical-upgrades">Technical Upgrades</h3>
+<ul>
+<li><strong>PWA Features</strong>: Offline reading capability</li>
+<li><strong>WebP Images</strong>: Better compression for faster loading</li>
+<li><strong>Service Worker</strong>: Advanced caching strategies</li>
+<li><strong>GraphQL</strong>: More efficient data fetching</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Building a personal website is a journey, not a destination. It&rsquo;s an ongoing project that evolves with your skills, interests, and goals.</p>
+<p>The most important step is starting. Don&rsquo;t wait for the perfect design or the perfect content. Start with something simple and improve it over time.</p>
+<p>Your website is a reflection of you as a developer and as a person. Make it something you&rsquo;re proud to share with the world.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><strong>Design Inspiration</strong>: <a href="https://www.awwwards.com/">Awwwards</a>, <a href="https://dribbble.com/">Dribbble</a></li>
+<li><strong>Hugo Documentation</strong>: <a href="https://gohugo.io/">gohugo.io</a></li>
+<li><strong>Performance Testing</strong>: <a href="https://pagespeed.web.dev/">PageSpeed Insights</a></li>
+<li><strong>Accessibility</strong>: <a href="https://wave.webaim.org/">WAVE</a>, <a href="https://www.deque.com/axe/">axe DevTools</a></li>
+</ul>
+<p>Ready to build your own? Start today—your future self will thank you.</p>
+            </div>
+
+            
+
+
+
+
+            
+
+        </article>
+    </main>
+</div>
+
+
+<footer>
+  <div class="body">
+    <div class="footer-author">
+      <a href="/about">
+        <picture>
+          <img src="/images/author.jpg" alt="Author" class="author-photo" width="60" height="60">
+        </picture>
+      </a>
+      <div class="footer-author-text">
+        Hi, I'm <a href="/about">Author</a>.
+      </div>
+    </div>
+    <div>
+      <p>A Hugo theme port of endler.dev (original Zola theme)</p>
+      <p>Browse my <a href="/posts">Blog Posts</a>, subscribe to my <a href="/rss.xml">RSS feed</a>, or learn more <a href="/about">about me</a>.</p>
+      <nav class="social-icons">
+    <ul>
+        <li>
+            <a class="icon" href="/" title="Go to homepage" target="_blank" aria-label="Go to homepage">
+                <img src="/icons/home.svg" alt="Home">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://github.com/example" title="Github" target="_blank" aria-label="Github">
+                <img src="/icons/github.svg" alt="Github">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://mastodon.social/@example" title="Mastodon"  target="_blank"aria-label="Mastodon">
+                <img src="/icons/mastodon.svg" alt="Mastodon">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://twitter.com/example" title="Twitter" target="_blank" aria-label="Twitter">
+                <img src="/icons/twitter.svg" alt="Twitter">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="/rss.xml" title="RSS feed" target="_blank"  aria-label="RSS feed">
+                <img src="/icons/rss.svg" alt="RSS feed">
+            </a>
+        </li>
+    </ul>
+</nav>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    (function initTheme(){
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+</script>
+</body>
+</html>

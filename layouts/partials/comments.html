@@ -1,0 +1,15 @@
+{{- $server := "" }}
+{{- if ge (int (index (split hugo.Version ".") 1)) "120" }}
+	{{- $server = hugo.IsServer }}
+{{- else }}
+	{{- $server = .Site.IsServer }}
+{{- end }}
+{{ if and .Site.Params.Disqus.enabled (.Params.Disqus | default true) }}
+<section class="comments">
+	{{ template "_internal/disqus.html" . }}
+</section>
+{{- end }}
+
+{{ if and .Site.Params.remark42.enabled (.Params.remark42 | default true) }}
+	{{ partial "remark42.html" . }}
+{{ end }}

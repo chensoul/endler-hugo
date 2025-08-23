@@ -1,0 +1,17 @@
+<article class="homepage">
+    <a class="title" href="{{ .RelPermalink }}">
+        <h1>{{ .Title }}</h1>
+    </a>
+
+    <p class="excerpt">
+        {{ if .Params.excerpt }}
+            {{ .Params.excerpt | plainify }}
+        {{ else  if .Summary }}
+            {{ .Summary | plainify }}
+        {{ else }}
+            {{ .Plain | truncate 100 | plainify }}
+        {{ end }}
+
+<!--        <a href="{{ .RelPermalink }}">More »</a>-->
+    </p>
+</article>

@@ -1,0 +1,44 @@
+name = "endler-hugo"
+description = "A Hugo theme port of endler.dev (original Zola theme)"
+author = "ChenSoul"
+license = "MIT"
+# Minimum Hugo version
+min_version = "0.110.0"
+
+
+[pagination]
+  pagerSize = 10
+
+[permalinks]
+  posts="/posts/:year/:month/:day/:slug/"
+  categories="/categories/:slug/"
+  tags="/tags/:slug/"
+  pages="/:slug/"
+
+[params]
+  author = "ChenSoul"
+  description = "A Hugo theme port of endler.dev (original Zola theme)"
+  mastodon = "example"
+  twitter = "example"
+  github = "example"
+
+  [remark42]
+    enabled = true
+    host = "https://remark42.example.com"
+    site = "remark"
+    locale = "en"
+
+[taxonomies]
+  tag = "tags"
+
+[outputFormats]
+  [outputFormats.RSS]
+    mediaType = "application/rss+xml"
+    baseName = "rss"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.highlight]
+    noClasses = false

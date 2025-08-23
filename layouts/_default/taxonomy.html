@@ -1,0 +1,34 @@
+{{ define "main" }}
+<div class="container">
+  <main>
+    <h1>{{ .Title }}</h1>
+
+    {{ if eq .Type "tags" }}
+      <p class="tag-description">
+        {{ .Params.description | default (printf "Posts tagged with \"%s\"" .Title) }}
+      </p>
+    {{ end }}
+
+    {{ $paginator := .Paginate .Pages }}
+    {{ range $paginator.Pages }}
+      {{ partial "article.html" . }}
+    {{ end }}
+
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="pagination" aria-label="Tag pagination">
+        {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" rel="prev">« Newer posts</a>
+        {{ else }}
+            <span></span>
+        {{ end }}
+
+        {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" rel="next">Older posts »</a>
+        {{ else }}
+            <span></span>
+        {{ end }}
+    </nav>
+    {{ end }}
+  </main>
+</div>
+{{ end }}

@@ -1,0 +1,21 @@
+{{- define "main" -}}
+<div class="container">
+  <main>
+    {{ if not .IsHome }}
+    <h1>{{ .Title }}</h1>
+    {{ end }}
+    {{ range .Paginator.Pages }}
+      {{ partial "article.html" . }}
+    {{ end }}
+
+    <nav class="pagination" aria-label="Blog pagination">
+      <span>
+        {{ if .Paginator.HasPrev }}<a href="{{ .Paginator.Prev.URL }}" rel="prev">« Newer posts</a>{{ end }}
+      </span>
+      <span>
+        {{ if .Paginator.HasNext }}<a href="{{ .Paginator.Next.URL }}" rel="next">Older posts »</a>{{ end }}
+      </span>
+    </nav>
+  </main>
+</div>
+{{- end -}}

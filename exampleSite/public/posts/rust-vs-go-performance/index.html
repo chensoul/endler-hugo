@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-cn" data-theme="light">
+<head>
+    <script>
+        (function() {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+          }
+        })();
+    </script>
+    <link rel="preload" href="/fonts/Happy-Headline.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/merriweather-v31-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/syntax-theme-light-custom.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/syntax-theme-dark-custom.css" media="(prefers-color-scheme: dark)">
+    <link rel="canonical" href="https://example.com/posts/rust-vs-go-performance/"/>
+    <link rel="me" href="example"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml"/>
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff2e88"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"/>
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png"/>
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png"/>
+    <link rel="manifest" href="/site.webmanifest"/>
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="msapplication-config" content="/browserconfig.xml"/>
+    <meta name="author" content="Author"/>
+    <meta name="description" content="A Hugo theme port of endler.dev (original Zola theme)"/>
+    <title>Rust vs Go: A Performance Comparison | Endler Hugo Theme</title>
+
+    <style>
+        @font-face {
+            font-family: "Happy-Headline";
+            src: url("/fonts/Happy-Headline.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Happy";
+            src: url("/fonts/Happy.woff2") format("woff2");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "JetBrainsMono";
+            src: url("/fonts/JetBrainsMono-Regular.woff2") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: italic;
+            font-weight: 400;
+            src: url('/fonts/merriweather-v31-latin-italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: 'Merriweather';
+            font-style: bold;
+            font-weight: 700;
+            src: url('/fonts/merriweather-v31-latin-700.woff2') format('woff2');
+        }
+    </style>
+
+    
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Rust vs Go: A Performance Comparison | Endler Hugo Theme"/>
+<meta property="og:type" content="website"/>
+<meta property="og:description" content="An in-depth comparison of Rust and Go performance across different use cases, with real benchmarks and code examples."/>
+<meta property="og:url" content="https://example.com/posts/rust-vs-go-performance/"/>
+<meta property="og:image" content="https://endler.dev/default.png"/>
+
+<meta name="twitter:title" content="Rust vs Go: A Performance Comparison">
+<meta name="twitter:description" content="An in-depth comparison of Rust and Go performance across different use cases, with real benchmarks and code examples.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@matthiasendler">
+<meta name="twitter:creator" content="@matthiasendler">
+<meta name="twitter:image" content="https://endler.dev/default.png">
+
+</head>
+<body>
+<header>
+    <div class="site-header">
+        <a href="/" aria-label="Go back to homepage">
+            <picture>
+                <img src="/images/favicon.jpg" class="author-photo" alt="Site logo" width="40" height="40"/>
+            </picture>
+        </a>
+        <div>
+            <a href="/" aria-label="Go back to homepage">
+                <h1>Endler Hugo Theme</h1>
+            </a>
+            
+        </div>
+        <button onclick="toggleTheme()" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</header>
+
+
+<div class="container">
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>Rust vs Go: A Performance Comparison</h1>
+                
+
+                <div class="post-meta">
+          <span class="post-date">
+            
+              2024-12-20
+            
+          </span>
+                    
+                    <span class="post-tags">
+            
+                <a href="/tags/rust/" class="tag-link">#rust</a>
+                        
+                |  <a href="/tags/go/" class="tag-link">#go</a>
+                        
+                |  <a href="/tags/performance/" class="tag-link">#performance</a>
+                        
+                |  <a href="/tags/programming/" class="tag-link">#programming</a>
+                        
+                |  <a href="/tags/benchmarks/" class="tag-link">#benchmarks</a>
+                        
+          </span>
+                    
+                </div>
+
+
+            </header>
+
+            <div class="article-content">
+                <p>Both Rust and Go are modern systems programming languages that prioritize performance and safety. But how do they actually compare in real-world scenarios?</p>
+<h2 id="overview">Overview</h2>
+<p><strong>Rust</strong> is a systems programming language focused on safety, speed, and concurrency. It achieves memory safety without garbage collection through its ownership system.</p>
+<p><strong>Go</strong> is designed for simplicity and productivity, with built-in concurrency support and garbage collection. It&rsquo;s particularly popular for web services and distributed systems.</p>
+<h2 id="benchmark-setup">Benchmark Setup</h2>
+<p>For this comparison, I tested both languages across several scenarios:</p>
+<ul>
+<li><strong>CPU-intensive tasks</strong>: Mathematical computations</li>
+<li><strong>Memory operations</strong>: Large data structure manipulation</li>
+<li><strong>I/O operations</strong>: File and network operations</li>
+<li><strong>Concurrency</strong>: Parallel processing tasks</li>
+</ul>
+<h3 id="test-environment">Test Environment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CPU: Intel i7-12700K <span style="color:#f92672">(</span><span style="color:#ae81ff">12</span> cores, <span style="color:#ae81ff">20</span> threads<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>RAM: 32GB DDR4-3200
+</span></span><span style="display:flex;"><span>OS: Ubuntu 22.04 LTS
+</span></span><span style="display:flex;"><span>Rust: 1.75.0
+</span></span><span style="display:flex;"><span>Go: 1.21.5
+</span></span></code></pre></div><h2 id="cpu-intensive-benchmarks">CPU-Intensive Benchmarks</h2>
+<h3 id="fibonacci-calculation">Fibonacci Calculation</h3>
+<p><strong>Rust Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">fibonacci</span>(n: <span style="color:#66d9ef">u64</span>) -&gt; <span style="color:#66d9ef">u64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> n {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        _ <span style="color:#f92672">=&gt;</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> start <span style="color:#f92672">=</span> std::time::Instant::now();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> fibonacci(<span style="color:#ae81ff">45</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> duration <span style="color:#f92672">=</span> start.elapsed();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Rust: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> in </span><span style="color:#e6db74">{:?}</span><span style="color:#e6db74">&#34;</span>, result, duration);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Go Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#ae81ff">45</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">duration</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Go: %d in %v\n&#34;</span>, <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">duration</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Results:</strong></p>
+<ul>
+<li>Rust: <code>1134903170</code> in <code>3.2s</code></li>
+<li>Go: <code>1134903170</code> in <code>4.8s</code></li>
+</ul>
+<p><strong>Winner: Rust</strong> (33% faster)</p>
+<h3 id="prime-number-generation">Prime Number Generation</h3>
+<p><strong>Rust Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">is_prime</span>(n: <span style="color:#66d9ef">u64</span>) -&gt; <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>; }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> sqrt_n <span style="color:#f92672">=</span> (n <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">f64</span>).sqrt() <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">u64</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#66d9ef">in</span> (<span style="color:#ae81ff">3</span><span style="color:#f92672">..=</span>sqrt_n).step_by(<span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">count_primes</span>(limit: <span style="color:#66d9ef">u64</span>) -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">2</span><span style="color:#f92672">..</span>limit).filter(<span style="color:#f92672">|&amp;</span>n<span style="color:#f92672">|</span> is_prime(n)).count()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Go Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isPrime</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> &lt; <span style="color:#ae81ff">2</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span> }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span> }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span> }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sqrt</span> <span style="color:#f92672">:=</span> int(<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Sqrt</span>(float64(<span style="color:#a6e22e">n</span>)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">3</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">sqrt</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">%</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span> }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">countPrimes</span>(<span style="color:#a6e22e">limit</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">limit</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isPrime</span>(<span style="color:#a6e22e">i</span>) { <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span> }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Results (counting primes up to 1,000,000):</strong></p>
+<ul>
+<li>Rust: <code>78,498 primes</code> in <code>285ms</code></li>
+<li>Go: <code>78,498 primes</code> in <code>420ms</code></li>
+</ul>
+<p><strong>Winner: Rust</strong> (32% faster)</p>
+<h2 id="memory-operations">Memory Operations</h2>
+<h3 id="large-array-sorting">Large Array Sorting</h3>
+<p><strong>Rust Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> rand::Rng;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">generate_random_vec</span>(size: <span style="color:#66d9ef">usize</span>) -&gt; Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> rng <span style="color:#f92672">=</span> rand::thread_rng();
+</span></span><span style="display:flex;"><span>    (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>size).map(<span style="color:#f92672">|</span>_<span style="color:#f92672">|</span> rng.gen_range(<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1000000</span>)).collect()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> data <span style="color:#f92672">=</span> generate_random_vec(<span style="color:#ae81ff">10_000_000</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> start <span style="color:#f92672">=</span> std::time::Instant::now();
+</span></span><span style="display:flex;"><span>    data.sort_unstable();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> duration <span style="color:#f92672">=</span> start.elapsed();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Rust sort: </span><span style="color:#e6db74">{:?}</span><span style="color:#e6db74">&#34;</span>, duration);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Go Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">generateRandomSlice</span>(<span style="color:#a6e22e">size</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">size</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">size</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">1000000</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">generateRandomSlice</span>(<span style="color:#ae81ff">10_000_000</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Ints</span>(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">duration</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Go sort: %v\n&#34;</span>, <span style="color:#a6e22e">duration</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Results (10M integers):</strong></p>
+<ul>
+<li>Rust: <code>1.2s</code></li>
+<li>Go: <code>1.8s</code></li>
+</ul>
+<p><strong>Winner: Rust</strong> (33% faster)</p>
+<h2 id="concurrency-benchmarks">Concurrency Benchmarks</h2>
+<h3 id="parallel-sum-calculation">Parallel Sum Calculation</h3>
+<p><strong>Rust Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> rayon::prelude::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">parallel_sum</span>(data: <span style="color:#66d9ef">&amp;</span>[<span style="color:#66d9ef">i64</span>]) -&gt; <span style="color:#66d9ef">i64</span> {
+</span></span><span style="display:flex;"><span>    data.par_iter().sum()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> data: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">100_000_000</span>).collect();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> start <span style="color:#f92672">=</span> std::time::Instant::now();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> sum <span style="color:#f92672">=</span> parallel_sum(<span style="color:#f92672">&amp;</span>data);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> duration <span style="color:#f92672">=</span> start.elapsed();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Rust parallel sum: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> in </span><span style="color:#e6db74">{:?}</span><span style="color:#e6db74">&#34;</span>, sum, duration);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Go Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">parallelSum</span>(<span style="color:#a6e22e">data</span> []<span style="color:#66d9ef">int64</span>) <span style="color:#66d9ef">int64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">numWorkers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">NumCPU</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chunkSize</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">data</span>) <span style="color:#f92672">/</span> <span style="color:#a6e22e">numWorkers</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int64</span>, <span style="color:#a6e22e">numWorkers</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">numWorkers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">chunkSize</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">end</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">chunkSize</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">numWorkers</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">end</span> = len(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">chunk</span> []<span style="color:#66d9ef">int64</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sum</span> <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">chunk</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">v</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">results</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">sum</span>
+</span></span><span style="display:flex;"><span>        }(<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">start</span>:<span style="color:#a6e22e">end</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">total</span> <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">numWorkers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">total</span> <span style="color:#f92672">+=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">results</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">total</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Results (100M integers):</strong></p>
+<ul>
+<li>Rust: <code>4999999950000000</code> in <code>45ms</code></li>
+<li>Go: <code>4999999950000000</code> in <code>78ms</code></li>
+</ul>
+<p><strong>Winner: Rust</strong> (42% faster)</p>
+<h2 id="io-performance">I/O Performance</h2>
+<h3 id="file-processing">File Processing</h3>
+<p><strong>Rust Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::fs::File;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::io::{BufRead, BufReader};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">count_lines</span>(filename: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; <span style="color:#a6e22e">std</span>::io::Result<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> file <span style="color:#f92672">=</span> File::open(filename)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> reader <span style="color:#f92672">=</span> BufReader::new(file);
+</span></span><span style="display:flex;"><span>    Ok(reader.lines().count())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Go Implementation:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">countLines</span>(<span style="color:#a6e22e">filename</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">filename</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanner</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">file</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Err</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Results (1GB text file):</strong></p>
+<ul>
+<li>Rust: <code>2.1s</code></li>
+<li>Go: <code>2.3s</code></li>
+</ul>
+<p><strong>Winner: Rust</strong> (9% faster)</p>
+<h2 id="memory-usage">Memory Usage</h2>
+<h3 id="rss-memory-consumption">RSS Memory Consumption</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Benchmark</th>
+          <th>Rust</th>
+          <th>Go</th>
+          <th>Difference</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Fibonacci</td>
+          <td>2.1 MB</td>
+          <td>3.8 MB</td>
+          <td>Rust uses 45% less</td>
+      </tr>
+      <tr>
+          <td>Prime Count</td>
+          <td>2.2 MB</td>
+          <td>4.1 MB</td>
+          <td>Rust uses 46% less</td>
+      </tr>
+      <tr>
+          <td>Array Sort</td>
+          <td>382 MB</td>
+          <td>421 MB</td>
+          <td>Rust uses 9% less</td>
+      </tr>
+      <tr>
+          <td>Parallel Sum</td>
+          <td>763 MB</td>
+          <td>798 MB</td>
+          <td>Rust uses 4% less</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="compilation-and-binary-size">Compilation and Binary Size</h2>
+<h3 id="build-times">Build Times</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Rust (release build)</span>
+</span></span><span style="display:flex;"><span>time cargo build --release
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># real: 0m12.345s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Go (optimized build)  </span>
+</span></span><span style="display:flex;"><span>time go build -ldflags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-s -w&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># real: 0m2.156s</span>
+</span></span></code></pre></div><p><strong>Winner: Go</strong> (5.7x faster compilation)</p>
+<h3 id="binary-sizes">Binary Sizes</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Rust binary</span>
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> user user 8.2M fibonacci_rust
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Go binary</span>
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> user user 6.1M fibonacci_go
+</span></span></code></pre></div><p><strong>Winner: Go</strong> (25% smaller binaries)</p>
+<h2 id="summary">Summary</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Category</th>
+          <th>Winner</th>
+          <th>Advantage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>CPU Performance</td>
+          <td>Rust</td>
+          <td>30-40% faster</td>
+      </tr>
+      <tr>
+          <td>Memory Usage</td>
+          <td>Rust</td>
+          <td>10-45% less</td>
+      </tr>
+      <tr>
+          <td>Concurrency</td>
+          <td>Rust</td>
+          <td>20-40% faster</td>
+      </tr>
+      <tr>
+          <td>I/O Operations</td>
+          <td>Rust</td>
+          <td>5-15% faster</td>
+      </tr>
+      <tr>
+          <td>Compilation Speed</td>
+          <td>Go</td>
+          <td>5-6x faster</td>
+      </tr>
+      <tr>
+          <td>Binary Size</td>
+          <td>Go</td>
+          <td>20-30% smaller</td>
+      </tr>
+      <tr>
+          <td>Development Speed</td>
+          <td>Go</td>
+          <td>Subjective</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="conclusions">Conclusions</h2>
+<p><strong>Choose Rust when:</strong></p>
+<ul>
+<li>Maximum performance is critical</li>
+<li>Memory efficiency is important</li>
+<li>You&rsquo;re building system-level software</li>
+<li>Long-term maintenance is a priority</li>
+</ul>
+<p><strong>Choose Go when:</strong></p>
+<ul>
+<li>Development speed is crucial</li>
+<li>You need rapid prototyping</li>
+<li>Building web services or APIs</li>
+<li>Team productivity is the priority</li>
+</ul>
+<p>Both languages excel in their respective domains. Rust offers superior runtime performance at the cost of longer development cycles, while Go provides excellent developer productivity with good-enough performance for most applications.</p>
+<p>The choice ultimately depends on your specific requirements, team expertise, and project constraints.</p>
+            </div>
+
+            
+
+
+
+
+            
+
+        </article>
+    </main>
+</div>
+
+
+<footer>
+  <div class="body">
+    <div class="footer-author">
+      <a href="/about">
+        <picture>
+          <img src="/images/author.jpg" alt="Author" class="author-photo" width="60" height="60">
+        </picture>
+      </a>
+      <div class="footer-author-text">
+        Hi, I'm <a href="/about">Author</a>.
+      </div>
+    </div>
+    <div>
+      <p>A Hugo theme port of endler.dev (original Zola theme)</p>
+      <p>Browse my <a href="/posts">Blog Posts</a>, subscribe to my <a href="/rss.xml">RSS feed</a>, or learn more <a href="/about">about me</a>.</p>
+      <nav class="social-icons">
+    <ul>
+        <li>
+            <a class="icon" href="/" title="Go to homepage" target="_blank" aria-label="Go to homepage">
+                <img src="/icons/home.svg" alt="Home">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://github.com/example" title="Github" target="_blank" aria-label="Github">
+                <img src="/icons/github.svg" alt="Github">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://mastodon.social/@example" title="Mastodon"  target="_blank"aria-label="Mastodon">
+                <img src="/icons/mastodon.svg" alt="Mastodon">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="https://twitter.com/example" title="Twitter" target="_blank" aria-label="Twitter">
+                <img src="/icons/twitter.svg" alt="Twitter">
+            </a>
+        </li>
+        <li>
+            <a class="icon" href="/rss.xml" title="RSS feed" target="_blank"  aria-label="RSS feed">
+                <img src="/icons/rss.svg" alt="RSS feed">
+            </a>
+        </li>
+    </ul>
+</nav>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    (function initTheme(){
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+</script>
+</body>
+</html>

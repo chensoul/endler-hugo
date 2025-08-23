@@ -1,0 +1,75 @@
+{{ define "head" }}
+{{ $social_img := "https://endler.dev/default.png" }}
+{{ with .Params.social_img }}
+{{ $social_img = . }}
+{{ end }}
+
+{{ $social_description := "" }}
+{{ if .Params.excerpt }}
+{{ $social_description = .Params.excerpt }}
+{{ else if .Summary }}
+{{ $social_description = .Summary }}
+{{ else }}
+{{ $social_description = .Plain | truncate 50 }}
+{{ end }}
+
+<meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:description" content="{{ $social_description | plainify }}"/>
+<meta property="og:url" content="{{ .Permalink }}"/>
+<meta property="og:image" content="{{ $social_img }}"/>
+
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ $social_description | plainify }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@matthiasendler">
+<meta name="twitter:creator" content="@matthiasendler">
+<meta name="twitter:image" content="{{ $social_img }}">
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>{{ .Title }}</h1>
+                {{ if .Params.subtitle }}
+                <h2 class="subtitle">&mdash; {{ .Params.subtitle }}</h2>
+                {{ end }}
+
+                <div class="post-meta">
+          <span class="post-date">
+            {{ if .Lastmod }}
+              {{ .Lastmod.Format "2006-01-02" }}
+            {{ else }}
+              {{ .Date.Format "2006-01-02" }}
+            {{ end }}
+          </span>
+                    {{ if .Params.tags }}
+                    <span class="post-tags">
+            {{ range $index, $tag := .Params.tags }}
+                {{ if gt $index 0 }}|  {{ end }}<a href="{{ "/tags/" | relURL }}{{ $tag | urlize }}/" class="tag-link">#{{ $tag }}</a>
+                        {{ end }}
+          </span>
+                    {{ end }}
+                </div>
+
+
+            </header>
+
+            <div class="article-content">
+                {{ .Content }}
+            </div>
+
+            {{ partial "comments.html" . }}
+
+            {{ if .Params.translations }}
+            <ul class="post-links">
+                <li>{{ .Params.translations | safeHTML }}</li>
+            </ul>
+            {{ end }}
+
+        </article>
+    </main>
+</div>
+{{ end }}

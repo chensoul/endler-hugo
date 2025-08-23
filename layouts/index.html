@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="container">
+  <main>
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" (slice "posts" "post")).ByDate.Reverse }}
+    {{ range $paginator.Pages }}
+      {{ partial "article.html" . }}
+    {{ end }}
+
+    <nav class="pagination" aria-label="Blog pagination">
+        {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" rel="prev">« Newer posts</a>
+        {{ else }}
+            <span></span>
+        {{ end }}
+
+        {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" rel="next">Older posts »</a>
+        {{ else }}
+            <span></span>
+        {{ end }}
+    </nav>
+  </main>
+</div>
+{{ end }}

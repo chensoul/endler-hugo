@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Endler Hugo Theme</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Endler Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>Author</managingEditor>
+    <webMaster>Author</webMaster>
+    <lastBuildDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/rss.xml" rel="self" type="application/rss&#43;xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;This is the Endler Hugo theme, a faithful port of the original &lt;a href=&#34;https://endler.dev&#34;&gt;endler.dev&lt;/a&gt; website design from Zola to Hugo.&lt;/p&gt;
+&lt;h2 id=&#34;original-design&#34;&gt;Original Design&lt;/h2&gt;
+&lt;p&gt;The original design was created by &lt;a href=&#34;https://endler.dev&#34;&gt;Matthias Endler&lt;/a&gt; for his personal website. It features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Clean, minimalist design&lt;/li&gt;
+&lt;li&gt;Excellent typography&lt;/li&gt;
+&lt;li&gt;Dark/light theme support&lt;/li&gt;
+&lt;li&gt;Fast loading times&lt;/li&gt;
+&lt;li&gt;Accessible design&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;hugo-port&#34;&gt;Hugo Port&lt;/h2&gt;
+&lt;p&gt;This Hugo port maintains all the visual and functional aspects of the original while adapting it to work with Hugo&amp;rsquo;s templating system and features.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Welcome to the Endler Hugo Theme: A Complete Feature Showcase</title>
+      <link>http://localhost:1313/posts/example-post/</link>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/example-post/</guid>
+      <description>Explore the complete feature set of the Endler Hugo theme through this comprehensive showcase of design elements, typography, and functionality.</description>
+    </item>
+    <item>
+      <title>中文排版与字体优化：Endler Hugo主题的本土化设计</title>
+      <link>http://localhost:1313/posts/chinese-example/</link>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/chinese-example/</guid>
+      <description>深入探讨Endler Hugo主题如何针对中文用户进行优化，包括字体选择、排版设计、阅读体验等多个维度的本土化改进。</description>
+    </item>
+    <item>
+      <title>Getting Started with Hugo: A Complete Guide</title>
+      <link>http://localhost:1313/posts/getting-started-with-hugo/</link>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/getting-started-with-hugo/</guid>
+      <description>Learn how to build fast, modern websites with Hugo, the world&#39;s fastest static site generator.</description>
+    </item>
+    <item>
+      <title>Rust vs Go: A Performance Comparison</title>
+      <link>http://localhost:1313/posts/rust-vs-go-performance/</link>
+      <pubDate>Fri, 20 Dec 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/rust-vs-go-performance/</guid>
+      <description>An in-depth comparison of Rust and Go performance across different use cases, with real benchmarks and code examples.</description>
+    </item>
+    <item>
+      <title>My Development Setup: Tools and Workflow for 2025</title>
+      <link>http://localhost:1313/posts/my-development-setup/</link>
+      <pubDate>Sat, 30 Nov 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/my-development-setup/</guid>
+      <description>A detailed look at my current development environment, including hardware, software, and productivity tools that help me stay efficient.</description>
+    </item>
+    <item>
+      <title>Thoughts on Digital Minimalism in Software Development</title>
+      <link>http://localhost:1313/posts/thoughts-on-minimalism/</link>
+      <pubDate>Tue, 15 Oct 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/thoughts-on-minimalism/</guid>
+      <description>Exploring how the principles of minimalism can transform not just our code, but our entire approach to software development and life.</description>
+    </item>
+    <item>
+      <title>Building a Personal Website: From Idea to Deployment</title>
+      <link>http://localhost:1313/posts/building-personal-website/</link>
+      <pubDate>Tue, 10 Sep 2024 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>http://localhost:1313/posts/building-personal-website/</guid>
+      <description>A complete walkthrough of building a personal website from scratch, including design decisions, technical choices, and deployment strategies.</description>
+    </item>
+  </channel>
+</rss>

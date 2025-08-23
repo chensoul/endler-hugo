@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计 on Endler Hugo Theme</title>
+    <link>https://example.com/tags/%E8%AE%BE%E8%AE%A1/</link>
+    <description>Recent content in 设计 on Endler Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>Author</managingEditor>
+    <webMaster>Author</webMaster>
+    <lastBuildDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/%E8%AE%BE%E8%AE%A1/rss.xml" rel="self" type="application/rss&#43;xml" />
+    <item>
+      <title>中文排版与字体优化：Endler Hugo主题的本土化设计</title>
+      <link>https://example.com/posts/chinese-example/</link>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 &#43;0000</pubDate>
+      <author>Author</author>
+      <guid>https://example.com/posts/chinese-example/</guid>
+      <description>深入探讨Endler Hugo主题如何针对中文用户进行优化，包括字体选择、排版设计、阅读体验等多个维度的本土化改进。</description>
+    </item>
+  </channel>
+</rss>

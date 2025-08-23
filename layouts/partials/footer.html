@@ -1,0 +1,19 @@
+<footer>
+  <div class="body">
+    <div class="footer-author">
+      <a href="/about">
+        <picture>
+          <img src="/images/author.jpg" alt="{{ .Site.Params.author }}" class="author-photo" width="60" height="60">
+        </picture>
+      </a>
+      <div class="footer-author-text">
+        Hi, I'm <a href="/about">{{ .Site.Params.author }}</a>.
+      </div>
+    </div>
+    <div>
+      <p>{{ .Site.Params.description }}</p>
+      <p>Browse my <a href="/posts">Blog Posts</a>, subscribe to my <a href="/rss.xml">RSS feed</a>, or learn more <a href="/about">about me</a>.</p>
+      {{ partial "social.html" . }}
+    </div>
+  </div>
+</footer>
