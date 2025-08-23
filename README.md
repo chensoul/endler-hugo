@@ -49,6 +49,12 @@ theme = "endler-hugo"
 [pagination]
   pagerSize = 10
 
+[permalinks]
+  posts="/posts/:year/:month/:day/:slug/"
+  categories="/categories/:slug/"
+  tags="/tags/:slug/"
+  pages="/:slug/"
+  
 [params]
   author = "Your Name"
   description = "Your site description"
