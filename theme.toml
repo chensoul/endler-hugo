@@ -5,7 +5,10 @@ license = "MIT"
 # Minimum Hugo version
 min_version = "0.110.0"
 
+summaryLength = 3
+ignoreLogs = ['warning-goldmark-raw-html']
 
+# Pagination
 [pagination]
   pagerSize = 10
 
@@ -16,29 +19,28 @@ min_version = "0.110.0"
   pages="/:slug/"
 
 [params]
-  author = "ChenSoul"
-  description = "A Hugo theme port of endler.dev (original Zola theme)"
-  mastodon = "example"
-  twitter = "example"
-  github = "example"
+  author = "Your Name"
+  description = "Your site description"
 
-  [remark42]
-    enabled = true
-    host = "https://remark42.example.com"
-    site = "remark"
-    locale = "en"
+[params.social]
+  mastodon = "example"  # without full URL
+  github = "example"
+  twitter = "example"
+
+[params.remark42]
+  enabled = true
+  host = "https://remark42.example.com"
+  site = "remark"
+  locale = "en"
 
 [taxonomies]
   tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS"]
 
 [outputFormats]
   [outputFormats.RSS]
     mediaType = "application/rss+xml"
-    baseName = "rss"
-
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-
-[markup]
-  [markup.highlight]
-    noClasses = false
+    baseName = "rss"  # generates rss.xml instead of index.xml

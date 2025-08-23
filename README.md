@@ -45,6 +45,9 @@ languageCode = "zh-cn"  # or "en-us" for English
 title = "Your Site Title"
 theme = "endler-hugo"
 
+summaryLength = 3
+ignoreLogs = ['warning-goldmark-raw-html']
+
 # Pagination
 [pagination]
   pagerSize = 10
@@ -58,10 +61,18 @@ theme = "endler-hugo"
 [params]
   author = "Your Name"
   description = "Your site description"
-  mastodon = "yourusername"  # without full URL
-  github = "yourusername"
-  twitter = "yourusername"
 
+[params.social]
+  mastodon = "example"  # without full URL
+  github = "example"
+  twitter = "example"
+
+[params.remark42]
+  enabled = true
+  host = "https://remark42.example.com"
+  site = "remark"
+  locale = "en"
+      
 [taxonomies]
   tag = "tags"
   category = "categories"

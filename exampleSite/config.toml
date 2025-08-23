@@ -3,15 +3,33 @@ languageCode = "zh-cn"
 title = "Endler Hugo Theme"
 theme = "endler-hugo"
 
+summaryLength = 3
+ignoreLogs = ['warning-goldmark-raw-html']
+
+# Pagination
 [pagination]
-  pagerSize = 5
+  pagerSize = 10
+
+[permalinks]
+  posts="/posts/:year/:month/:day/:slug/"
+  categories="/categories/:slug/"
+  tags="/tags/:slug/"
+  pages="/:slug/"
 
 [params]
-  author = "Author"
-  description = "A Hugo theme port of endler.dev (original Zola theme)"
-  mastodon = "example"
-  twitter = "example"
+  author = "Your Name"
+  description = "Your site description"
+
+[params.social]
+  mastodon = "example"  # without full URL
   github = "example"
+  twitter = "example"
+
+[params.remark42]
+  enabled = true
+  host = "https://remark42.example.com"
+  site = "remark"
+  locale = "en"
 
 [taxonomies]
   tag = "tags"
@@ -23,12 +41,4 @@ theme = "endler-hugo"
 [outputFormats]
   [outputFormats.RSS]
     mediaType = "application/rss+xml"
-    baseName = "rss"
-
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-
-
-
+    baseName = "rss"  # generates rss.xml instead of index.xml
