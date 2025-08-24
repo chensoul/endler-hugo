@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.0] - 2025-08-23
+
+### Added
+- **Comments System**: Support for 5 popular commenting platforms (Giscus, Utterances, Disqus, Gitalk, Valine)
+- **Mermaid Diagrams**: Built-in support for Mermaid charts and diagrams with automatic loading
+- **Back to Top Button**: Smooth scroll-to-top with perfect center alignment using Flexbox
+- **Enhanced Example Content**: 8 comprehensive articles showcasing all theme features
+- **Comprehensive Documentation**: Detailed guides for all features and configurations
+
+### Improved
+- **Button Alignment**: Fixed back-to-top button triangle centering using modern CSS
+- **Color Consistency**: Updated accent color to pink (#fc218a) throughout the theme
+- **Content Quality**: Expanded example articles with professional-grade content
+- **User Experience**: Better visual feedback and interaction design
+
+### Fixed
+- **Triangle Centering**: Back-to-top button triangle now perfectly centered using Flexbox
+- **CSS Optimization**: Removed redundant padding, added proper display properties
+- **Visual Consistency**: Unified color scheme and spacing throughout
+
 ## [1.2.0] - 2025-08-23
 
 ### Added

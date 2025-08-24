@@ -15,6 +15,9 @@ A Hugo theme port of [endler.dev](https://endler.dev) (original Zola theme). Thi
 - **Syntax highlighting** - Code blocks with syntax highlighting
 - **Font optimization** - Custom fonts with Chinese language support
 - **SEO optimized** - Proper meta tags and Open Graph support
+- **Comments system** - Support for remark42 platforms
+- **Mermaid diagrams** - Built-in support for Mermaid charts and diagrams
+- **Back to top button** - Smooth scroll-to-top with perfect centering
 
 ## Installation
 
@@ -151,6 +154,40 @@ The theme includes a complete tags system:
 - **Manual toggle** - Users can override system preference
 - **Persistent choice** - Remembers user's manual selection
 - **Smooth transitions** - Animated transitions between themes
+
+
+### Mermaid Diagrams
+
+Built-in support for Mermaid charts and diagrams with automatic loading:
+
+**Usage:**
+````markdown
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
+    C --> E[End]
+    D --> E
+```
+````
+
+**Features:**
+- Automatic Mermaid.js loading only when needed
+- CDN delivery for optimal performance
+- Support for all Mermaid diagram types
+- Theme-aware styling
+
+### Back to Top Button
+
+Smooth scroll-to-top functionality with perfect visual alignment:
+
+**Features:**
+- Appears after scrolling 800px
+- Perfect center alignment using Flexbox
+- Smooth fade in/out animations
+- Keyboard accessible (Alt + G)
+- Pink accent color matching theme
 
 ## Customization
 
