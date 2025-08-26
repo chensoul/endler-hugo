@@ -3,8 +3,6 @@ title: "Building a Personal Website: From Idea to Deployment"
 slug: "building-personal-website"
 date: 2024-09-10
 tags: ["web-development", "hugo", "design", "personal-branding", "project"]
-excerpt: "A complete walkthrough of building a personal website from scratch, including design decisions, technical choices, and deployment strategies."
-comments: true
 ---
 
 Creating a personal website is one of the best investments you can make as a developer. It's your digital home, portfolio, and creative outlet all in one.

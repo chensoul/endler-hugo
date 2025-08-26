@@ -3,8 +3,6 @@ title: "Rust vs Go: A Performance Comparison"
 slug: "rust-vs-go-performance"
 date: 2024-12-20
 tags: ["rust", "go", "performance", "programming", "benchmarks"]
-excerpt: "An in-depth comparison of Rust and Go performance across different use cases, with real benchmarks and code examples."
-comments: true
 ---
 
 Both Rust and Go are modern systems programming languages that prioritize performance and safety. But how do they actually compare in real-world scenarios?

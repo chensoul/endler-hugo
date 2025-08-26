@@ -3,8 +3,6 @@ title: "Welcome to the Endler Hugo Theme: A Complete Feature Showcase"
 slug: example-post
 date: 2025-08-23
 tags: ["hugo", "theme", "example", "markdown", "features", "showcase", "design", "typography"]
-excerpt: "Explore the complete feature set of the Endler Hugo theme through this comprehensive showcase of design elements, typography, and functionality."
-comments: true
 ---
 
 Welcome to the Endler Hugo theme! This comprehensive post demonstrates all the features and capabilities of this elegant theme, which is a faithful port of the original [endler.dev](https://endler.dev) Zola theme by [Matthias Endler](https://endler.dev).

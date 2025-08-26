@@ -3,8 +3,6 @@ title: "Thoughts on Digital Minimalism in Software Development"
 slug: "thoughts-on-minimalism"
 date: 2024-10-15
 tags: ["minimalism", "philosophy", "productivity", "focus", "lifestyle"]
-excerpt: "Exploring how the principles of minimalism can transform not just our code, but our entire approach to software development and life."
-comments: true
 ---
 
 In a world of endless frameworks, tools, and distractions, the concept of minimalism offers a refreshing perspective on how we approach both code and life.

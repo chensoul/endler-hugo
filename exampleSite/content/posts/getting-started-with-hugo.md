@@ -3,8 +3,6 @@ title: "Getting Started with Hugo: A Complete Guide"
 slug: "getting-started-with-hugo"
 date: 2025-01-15
 tags: ["hugo", "tutorial", "static-site", "web-development", "beginner"]
-excerpt: "Learn how to build fast, modern websites with Hugo, the world's fastest static site generator."
-comments: true
 ---
 
 Hugo is a fast and modern static site generator written in Go. It's designed for speed and flexibility, making it perfect for blogs, documentation sites, and portfolios.
